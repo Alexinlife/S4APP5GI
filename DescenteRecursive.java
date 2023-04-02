@@ -1,4 +1,4 @@
-package app;6
+package app6;
 
 /** @author Ahmed Khoumsi */
 
@@ -22,6 +22,14 @@ public DescenteRecursive(String in) {
  */
 public ElemAST AnalSynt( ) {
    //
+}
+
+public ElemAST N(){ //Nombre
+
+}
+
+public ElemAST E(){ //Expression (lorsqu'il y a
+
 }
 
 

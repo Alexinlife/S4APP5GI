@@ -45,11 +45,11 @@ public class AnalLex {
 
       if (etat == Etat.ZERO) {
 
-        if (caractere == '0' || caractere == '1'){
+        if (isaNumber(caractere)){
           etat = Etat.UN;
           chaine += caractere;
 
-        } else if (caractere == '+') {
+        } else if (isanOperator(caractere)) {
           chaine += caractere;
           return new Terminal(chaine, "op");
 
@@ -59,7 +59,7 @@ public class AnalLex {
 
       } else if (etat == Etat.UN) {
 
-        if (caractere == '0' || caractere == '1'){
+        if (isaNumber(caractere)){
           etat = Etat.UN;
           chaine += caractere;
 
@@ -72,8 +72,28 @@ public class AnalLex {
     return null;
   }
 
- 
-/**
+  private boolean isanOperator(char caractere) {
+    return caractere == '+' ||
+            caractere == '-' ||
+            caractere == '*' ||
+            caractere == '/';
+  }
+
+  private boolean isaNumber(char caractere) {
+    return caractere == '0' ||
+            caractere == '1' ||
+            caractere == '2' ||
+            caractere == '3' ||
+            caractere == '4' ||
+            caractere == '5' ||
+            caractere == '6' ||
+            caractere == '7' ||
+            caractere == '8' ||
+            caractere == '9';
+  }
+
+
+  /**
  * Envoie un message d'erreur lexicale
  */ 
   public void ErreurLex(String s) {

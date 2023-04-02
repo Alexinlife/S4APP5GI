@@ -6,6 +6,7 @@ package app6;
  */
 public abstract class ElemAST {
 
+  Terminal terminal;
   
   /** Evaluation d'AST
    */
