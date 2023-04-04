@@ -7,8 +7,10 @@ import java.util.regex.Pattern;
  * Cette classe effectue l'analyse lexicale
  */
 public class AnalLex {
+  private char c;
   private String chaine;
   private int curseur;
+  private String errPtr;
   private Etat etat;
   private String expression;
   private int longueurExpression;
@@ -19,6 +21,7 @@ public class AnalLex {
   public AnalLex(String expression) {  // arguments possibles
     chaine = "";
     curseur = 0;
+    errPtr = "";
     etat = Etat.INITIAL;
     this.expression = expression;
     longueurExpression = expression.length();
@@ -42,7 +45,7 @@ public class AnalLex {
   public Terminal prochainTerminal( ) {
 
     if (resteTerminal()) {
-      char c = expression.charAt(curseur);
+      c = expression.charAt(curseur);
       curseur++;
 
       if (etat == Etat.INITIAL) {
@@ -62,7 +65,8 @@ public class AnalLex {
           return new Terminal(chaine, TerminalType.op);
 
         } else if (!isASpace(c)) {
-          ErreurLex("Caractere invalide a l'index " + (curseur - 1));
+          ErreurLex("Les caracteres supportes a ce stade sont les nombres, les lettres majuscules, " +
+                  "les operateurs +, -, *, /, ( et ), les espaces ainsi que les retours de ligne.");
         }
 
       } else if (etat == Etat.NOMBRE) {
@@ -79,7 +83,8 @@ public class AnalLex {
           return new Terminal(chaine, TerminalType.nb);
 
         } else {
-          ErreurLex("Caractere invalide a l'index " + (curseur - 1));
+          ErreurLex("Les caracteres supportes a ce stade sont les nombres, les operateurs +, -, *, /, ( et ), " +
+                  "les espaces ainsi que les retours de ligne.");
         }
 
       } else if (etat == Etat.IDENTIFIANT) {
@@ -100,7 +105,8 @@ public class AnalLex {
           return new Terminal(chaine, TerminalType.id);
 
         } else {
-          ErreurLex("Caractere invalide a l'index " + (curseur - 1));
+          ErreurLex("Les caracteres supportes a ce stade sont les lettres, les tirets bas, " +
+                  "les operateurs +, -, *, /, ( et ), les espaces ainsi que les retours de ligne.");
         }
 
       } else if (etat == Etat.TIRETBAS) {
@@ -110,7 +116,8 @@ public class AnalLex {
           chaine += c;
 
         } else {
-          ErreurLex("Caractere invalide a l'index " + (curseur - 1));
+          ErreurLex("Les caracteres supportes a ce stade sont les lettres. " +
+                  "Un tiret bas ne peut pas etre suivi d'un deuxieme ni etre le dernier caractere d'un identifiant.");
         }
       }
     }
@@ -121,7 +128,19 @@ public class AnalLex {
  * Envoie un message d'erreur lexicale
  */ 
   public void ErreurLex(String s) {
-    throw  new IllegalArgumentException(s);
+    errPtr = "";
+
+    for (int i = 0; i < curseur - 1; i++) {
+      errPtr += " ";
+    }
+    errPtr += '^';
+
+    String msg = "\nERREUR DE L'ANALYSEUR LEXICAL\n" +
+            "Caractere  '" + c + "' invalide a l'index " + (curseur - 1) + '\n' +
+            expression.trim() + '\n' +
+            errPtr + '\n' +
+            s;
+    throw  new IllegalArgumentException(msg);
   }
 
   private boolean isAnOperator(char c) {
@@ -160,7 +179,7 @@ public class AnalLex {
 
     if (args.length == 0){
     args = new String [2];
-            args[0] = "(U_x + V_y ) * W_z / 35\n";
+            args[0] = "(U_x + V_y ) * W__z / 35\n";
             args[1] = "ResultatLexical.txt";
     }
 
