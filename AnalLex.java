@@ -97,7 +97,7 @@ public class AnalLex {
             curseur -= 1;
           }
           etat = Etat.INITIAL;
-          return new Terminal(chaine, "id");
+          return new Terminal(chaine, TerminalType.id);
 
         } else {
           ErreurLex("Caractere invalide a l'index " + (curseur - 1));
@@ -125,11 +125,11 @@ public class AnalLex {
   }
 
   private boolean isAnOperator(char c) {
-    return c == '+' || c == '-' || c == '*' || c == '/';
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')';
   }
 
   private boolean isASpace(char c) {
-    return c == ' ' || c == '\n' || c == '(' || c == ')';
+    return c == ' ' || c == '\n';
   }
 
   private boolean isANumber(char c) {
