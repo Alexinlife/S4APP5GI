@@ -3,25 +3,23 @@ package app6;
 import java.util.regex.Pattern;
 
 /**
- * @author Ahmed Khoumsi
  * Cette classe effectue l'analyse lexicale
  */
 public class AnalLex {
-  private char c;
-  private String chaine;
-  private int curseur;
-  private String errPtr;
-  private Etat etat;
-  private String expression;
+  private char c; // caractere lu de l'expression
+  private String chaine; // construction du symbole
+  private int curseur; // position dans l'expression
+  private Etat etat; // etat courant de l'analyseur
+  private String expression; // expression a evaluer
   private int longueurExpression;
 
-/**
- * Constructeur pour l'initialisation d'attribut(s)
- */
+  /**
+   * Constructeur pour l'initialisation d'attribut(s)
+   * @param expression a evaluer
+   */
   public AnalLex(String expression) {  // arguments possibles
     chaine = "";
     curseur = 0;
-    errPtr = "";
     etat = Etat.INITIAL;
     this.expression = expression;
     longueurExpression = expression.length();
@@ -37,11 +35,11 @@ public class AnalLex {
   public boolean resteTerminal( ) {
     return curseur < longueurExpression;
   }
-  
-/**
- * Retourne le prochain terminal
- * Cette methode est une implementation d'un AEF
- */
+
+  /**
+   * Methode principale de l'analyseur lexical
+   * @return le prochain terminal valide
+   */
   public Terminal prochainTerminal( ) {
 
     if (resteTerminal()) {
@@ -125,10 +123,11 @@ public class AnalLex {
   }
 
   /**
- * Envoie un message d'erreur lexicale
- */ 
+   * Envoie un message d'erreur lexical comprehensif
+   * @param s texte personnalise selon le contexte
+   */
   public void ErreurLex(String s) {
-    errPtr = "";
+    String errPtr = "";
 
     for (int i = 0; i < curseur - 1; i++) {
       errPtr += " ";
@@ -143,29 +142,59 @@ public class AnalLex {
     throw  new IllegalArgumentException(msg);
   }
 
+  /**
+   * valide si le caractere lu est un operateur
+   * @param c caractere lu de l'expression
+   * @return true si le caractere est un operateur, sinon false
+   */
   private boolean isAnOperator(char c) {
     return c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')';
   }
 
+  /**
+   * valide si le caractere lu est un espace ou un retour de ligne
+   * @param c caractere lu de l'expression
+   * @return true si le caractere est un espace ou un retour de ligne, sinon false
+   */
   private boolean isASpace(char c) {
     return c == ' ' || c == '\n';
   }
 
+  /**
+   * valide si le caractere lu est un nombre
+   * @param c caractere lu de l'expression
+   * @return true si le caractere est un nombre, sinon false
+   */
   private boolean isANumber(char c) {
     return c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
             c == '5' || c == '6' || c == '7' || c == '8' || c == '9';
   }
 
+  /**
+   * valide si le caractere lu est une lettre
+   * @param c caractere lu de l'expression
+   * @return true si le caractere est une lettre, sinon false
+   */
   private boolean isALetter(char c) {
     return isACapitalLetter(c) || isALowercaseLetter(c);
   }
 
+  /**
+   * valide si le caractere lu est une lettre majuscule
+   * @param c caractere lu de l'expression
+   * @return true si le caractere est une lettre majuscule, sinon false
+   */
   private boolean isACapitalLetter(char c) {
     return c == 'A' || c == 'B' ||c == 'C' ||c == 'D' ||c == 'E' ||c == 'F' ||c == 'G' ||c == 'H' ||c == 'I' ||
             c == 'J' || c == 'K' ||c == 'L' ||c == 'M' ||c == 'N' ||c == 'O' ||c == 'P' ||c == 'Q' ||c == 'R' ||
             c == 'S' || c == 'T' ||c == 'U' ||c == 'V' ||c == 'W' ||c == 'X' ||c == 'Y' ||c == 'Z';
   }
 
+  /**
+   * valide si le caractere lu est une lettre minuscule
+   * @param c caractere lu de l'expression
+   * @return true si le caractere est une lettre minuscule, sinon false
+   */
   private boolean isALowercaseLetter(char c) {
     return c == 'a' || c == 'b' ||c == 'c' ||c == 'd' ||c == 'e' ||c == 'f' ||c == 'g' ||c == 'h' ||c == 'i' ||
             c == 'j' || c == 'k' ||c == 'l' ||c == 'm' ||c == 'n' ||c == 'o' ||c == 'p' ||c == 'q' ||c == 'r' ||
@@ -179,7 +208,7 @@ public class AnalLex {
 
     if (args.length == 0){
     args = new String [2];
-            args[0] = "(U_x + V_y ) * W__z / 35\n";
+            args[0] = "(U_x + V_y ) * W__z / 35\n\n";
             args[1] = "ResultatLexical.txt";
     }
 
