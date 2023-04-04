@@ -18,9 +18,18 @@ public class FeuilleAST extends ElemAST {
   /** Evaluation de feuille d'AST
    */
   public int EvalAST( ) {
-    return Integer.parseInt(terminal.chaine);
+    if (isANumber(terminal.chaine)){return Integer.parseInt(terminal.chaine);}
+    return 0;
   }
-
+public boolean isANumber (String s){
+    for (char c:s.toCharArray()
+         ) {
+        if (!DescenteRecursive.isANumber(c)) {
+            return false;
+        }
+    }
+    return true;
+}
  /** Lecture de chaine de caracteres correspondant a la feuille d'AST
   */
   public String LectAST( ) {
