@@ -19,6 +19,7 @@ public class FeuilleAST extends ElemAST {
    */
   public int EvalAST( ) {
     if (isANumber(terminal.chaine)){return Integer.parseInt(terminal.chaine);}
+    ErreurEvalAST("Erreur : aucune valeur ne peut etre associe a l'identifiant " + terminal.chaine + " (considere comme 0)");
     return 0;
   }
 public boolean isANumber (String s){

@@ -24,10 +24,15 @@ public DescenteRecursive(String in) {
  *    Elle retourne une reference sur la racine de l'AST construit
  */
 public ElemAST AnalSynt( ) {
-   return A();
+   ElemAST retour = A();
+   if (ptr != input.length()){
+     ErreurSynt("Erreur au caractere "+ ptr);
+     return new FeuilleAST("0", TerminalType.nb);
+   }
+   return retour;
 }
 
-public ElemAST A(){ //Nombre
+public ElemAST A(){
   ElemAST newB = B();
   if (oob()) {
     return newB;
@@ -44,7 +49,7 @@ public ElemAST A(){ //Nombre
   }
 }
 
-  public ElemAST B(){ //Expression
+  public ElemAST B(){
   ElemAST newC = C();
   if (oob()) {
     return newC;
@@ -61,7 +66,7 @@ public ElemAST A(){ //Nombre
   }
 }
 
-public ElemAST C(){ //Operateur
+public ElemAST C(){
   if (oob()) {
     ErreurSynt("Aucun type trouvé dans C()");
   }else if (input.charAt(ptr) == '(') {
@@ -74,9 +79,10 @@ public ElemAST C(){ //Operateur
   } else if (isASymboleTerminal(input.charAt(ptr))) {
     return Id();
   } else {
-    ErreurSynt("Aucun type trouvé dans C()");
+    ErreurSynt("Erreur , l'UL attendu aurait du etre un id ou un nb");
+    ErreurSynt("Char at " + ptr + " : " + input.charAt(ptr));
   }
-  return null;
+  return new FeuilleAST("0", TerminalType.nb);
 }
 
 public ElemAST Id() { //Identificateur
@@ -188,7 +194,7 @@ public Boolean isAnOperator(char c){
  */
 public void ErreurSynt(String s)
 {
-    //
+    System.out.println(s);
 }
 
 
