@@ -59,7 +59,7 @@ public class AnalLex {
         } else if (isAnOperator(c)) {
           chaine += c;
           etat = Etat.INITIAL;
-          return new Terminal(chaine, "op");
+          return new Terminal(chaine, TerminalType.op);
 
         } else if (!isASpace(c)) {
           ErreurLex("Caractere invalide a l'index " + (curseur - 1));
@@ -76,7 +76,7 @@ public class AnalLex {
             curseur -= 1;
           }
           etat = Etat.INITIAL;
-          return new Terminal(chaine, "nb");
+          return new Terminal(chaine, TerminalType.nb);
 
         } else {
           ErreurLex("Caractere invalide a l'index " + (curseur - 1));

@@ -11,11 +11,17 @@ public class NoeudAST extends ElemAST {
 
   /** Constructeur pour l'initialisation d'attributs
    */
-  public NoeudAST( ) { // avec arguments
-
+  public NoeudAST(Terminal t, ElemAST fg, ElemAST fd) { // avec arguments
+    terminal = t;
+    feuilleGauche = fg;
+    feuilleDroite = fd;
   }
 
- 
+  public NoeudAST(String c, TerminalType t, ElemAST fg, ElemAST fd) { // avec arguments
+    terminal = new Terminal(c,t);
+    feuilleGauche = fg;
+    feuilleDroite = fd;
+  }
   /** Evaluation de noeud d'AST
    */
   public int EvalAST( ) {
@@ -35,14 +41,14 @@ public class NoeudAST extends ElemAST {
   /** Lecture de noeud d'AST
    */
   public String LectAST( ) {
-    if (terminal.chaine == "+")    {
-      return feuilleGauche.LectAST() + "+" + feuilleDroite.LectAST();
+           if (terminal.chaine == "+")    {
+      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " + ";
     } else if (terminal.chaine == "-") {
-      return feuilleGauche.LectAST() + "-" + feuilleDroite.LectAST();
+      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " - ";
     } else if (terminal.chaine == "*") {
-      return feuilleGauche.LectAST() + "*" + feuilleDroite.LectAST();
+      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " * ";
     } else if (terminal.chaine == "/") {
-      return feuilleGauche.LectAST() + "/" + feuilleDroite.LectAST();
+      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " / ";
     }
     return null;
   }
