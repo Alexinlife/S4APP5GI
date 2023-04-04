@@ -42,6 +42,19 @@ public class NoeudAST extends ElemAST {
    */
   public String LectAST( ) {
            if (terminal.chaine == "+")    {
+      return "(" + feuilleGauche.LectAST() + " + " + feuilleDroite.LectAST() + ")";
+    } else if (terminal.chaine == "-") {
+      return "(" + feuilleGauche.LectAST() + " - " + feuilleDroite.LectAST() + ")";
+    } else if (terminal.chaine == "*") {
+      return "(" + feuilleGauche.LectAST() + " * " + feuilleDroite.LectAST() + ")";
+    } else if (terminal.chaine == "/") {
+      return "(" + feuilleGauche.LectAST() + " / " + feuilleDroite.LectAST() + ")";
+    }
+    return null;
+  }
+
+  public String LectPostFix( ) {
+    if (terminal.chaine == "+")    {
       return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " + ";
     } else if (terminal.chaine == "-") {
       return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " - ";
@@ -52,7 +65,6 @@ public class NoeudAST extends ElemAST {
     }
     return null;
   }
-
 }
 
 
