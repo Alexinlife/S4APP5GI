@@ -31,8 +31,7 @@ public ElemAST A(){ //Nombre
   ElemAST newB = B();
   if (oob()) {
     return newB;
-  }
-  if (input.charAt(ptr) == '+') {
+  }else if (input.charAt(ptr) == '+') {
     ptr++;
     ElemAST newA = A();
     return new NoeudAST("+", TerminalType.op, newB, newA);
@@ -49,8 +48,7 @@ public ElemAST A(){ //Nombre
   ElemAST newC = C();
   if (oob()) {
     return newC;
-  }
-  if (input.charAt(ptr) == '*') {
+  }else if (input.charAt(ptr) == '*') {
     ptr++;
     ElemAST newB = B();
     return new NoeudAST("*", TerminalType.op, newC, newB);
@@ -66,12 +64,11 @@ public ElemAST A(){ //Nombre
 public ElemAST C(){ //Operateur
   if (oob()) {
     ErreurSynt("Aucun type trouvé dans C()");
-  }
-  if (input.charAt(ptr) == '(') {
+  }else if (input.charAt(ptr) == '(') {
     ptr++;
-    return A();
-  } else if (input.charAt(ptr) == ')') {
+    ElemAST temp = A();
     ptr++;
+    return temp;
   } else if (isANumber(input.charAt(ptr))) {
     return Nb();
   } else if (isASymboleTerminal(input.charAt(ptr))) {
