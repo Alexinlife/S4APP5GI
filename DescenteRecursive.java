@@ -214,6 +214,7 @@ public void ErreurSynt(String s)
     try {
       ElemAST RacineAST = dr.AnalSynt();
       toWriteLect += "Lecture de l'AST trouve : " + RacineAST.LectAST() + "\n";
+      toWriteLect += "Lecture postfix de l'AST trouve : " + RacineAST.LectPostfix() + "\n";
       System.out.println(toWriteLect);
       toWriteEval += "Evaluation de l'AST trouve : " + RacineAST.EvalAST() + "\n";
       System.out.println(toWriteEval);

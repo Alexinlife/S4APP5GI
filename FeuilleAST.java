@@ -36,5 +36,8 @@ public boolean isANumber (String s){
   public String LectAST( ) {
     return terminal.chaine;
   }
+    public String LectPostfix( ) {
+        return terminal.chaine;
+    }
 
 }

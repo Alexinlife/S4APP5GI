@@ -53,15 +53,15 @@ public class NoeudAST extends ElemAST {
     return null;
   }
 
-  public String LectPostFix( ) {
+  public String LectPostfix( ) {
     if (terminal.chaine == "+")    {
-      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " + ";
+      return feuilleGauche.LectPostfix() + " " + feuilleDroite.LectPostfix() + " + ";
     } else if (terminal.chaine == "-") {
-      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " - ";
+      return feuilleGauche.LectPostfix() + " " + feuilleDroite.LectPostfix() + " - ";
     } else if (terminal.chaine == "*") {
-      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " * ";
+      return feuilleGauche.LectPostfix() + " " + feuilleDroite.LectPostfix() + " * ";
     } else if (terminal.chaine == "/") {
-      return feuilleGauche.LectAST() + " " + feuilleDroite.LectAST() + " / ";
+      return feuilleGauche.LectPostfix() + " " + feuilleDroite.LectPostfix() + " / ";
     }
     return null;
   }
