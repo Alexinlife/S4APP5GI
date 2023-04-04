@@ -51,7 +51,7 @@ public class AnalLex {
 
         } else if (isanOperator(caractere)) {
           chaine += caractere;
-          return new Terminal(chaine, "op");
+          return new Terminal(chaine, TerminalType.op);
 
         } else {
           ErreurLex("Caractere invalide a l'index " + (curseur - 1));
@@ -65,7 +65,7 @@ public class AnalLex {
 
         } else {
           curseur -= 1;
-          return new Terminal(chaine, "nb");
+          return new Terminal(chaine, TerminalType.nb);
         }
       }
     }
