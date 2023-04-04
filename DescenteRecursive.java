@@ -88,7 +88,7 @@ public ElemAST Id() { //Identificateur
     identifiant += input.charAt(ptr);
     ptr++;
     if (oob()){return new FeuilleAST(identifiant, TerminalType.id);}
-    } while (isANumber(input.charAt(ptr)));
+    } while (isASymboleTerminal(input.charAt(ptr)));
   return new FeuilleAST(identifiant, TerminalType.id);
 }
 
@@ -104,11 +104,11 @@ public ElemAST Nb() {
 
 public Boolean oob() {return ptr >= input.length();}
 
-public Boolean isASymboleTerminal(char c){
+static public Boolean isASymboleTerminal(char c){
   return isACharacterLower(c) || isACharacterUpper(c) || isANumber(c) || c == '_';
 }
 
-public Boolean isANumber(char c){
+static public Boolean isANumber(char c){
   return (c=='0'||
           c=='1'||
           c=='2'||
@@ -121,7 +121,7 @@ public Boolean isANumber(char c){
           c=='9');
 }
 
-public Boolean isACharacterLower(char c){
+static public Boolean isACharacterLower(char c){
   return (c=='a'||
           c=='b'||
           c=='c'||
@@ -150,7 +150,7 @@ public Boolean isACharacterLower(char c){
           c=='z');
 }
 
-public Boolean isACharacterUpper(char c){
+static public Boolean isACharacterUpper(char c){
   return (c=='A'||
           c=='B'||
           c=='C'||
